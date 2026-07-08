@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interviewer Training</title>
+<style>
+  :root {
+    --ink: #1f2421;
+    --ink-soft: #4a544e;
+    --ink-faint: #7d857f;
+    --paper: #fbfaf7;
+    --card: #ffffff;
+    --line: #e5e2d9;
+    --line-strong: #d2cec2;
+    --forest: #2c5f2d;
+    --forest-deep: #1f451f;
+    --moss: #97bc62;
+    --moss-soft: #eef3e2;
+    --clay: #b85042;
+    --clay-soft: #f7ece9;
+    --gold: #c98a1a;
+    --gold-soft: #f8f0dd;
+    --sky: #2f6d7e;
+    --sky-soft: #e6f0f2;
+    --radius: 14px;
+    --shadow: 0 1px 3px rgba(31,36,33,0.06), 0 6px 24px rgba(31,36,33,0.05);
+    --sans: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --serif: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- progress bar ---------- */
+  #progress-wrap {
+    position: fixed; top: 0; left: 0; right: 0; height: 5px;
+    background: var(--line); z-index: 100;
+  }
+  #progress-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--forest), var(--moss));
+    transition: width 0.35s ease;
+  }
+
+  /* ---------- top nav ---------- */
+  #topnav {
+    position: fixed; top: 5px; left: 0; right: 0; z-index: 90;
+    background: rgba(251,250,247,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  #topnav .inner {
+    max-width: 860px; margin: 0 auto; padding: 10px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  #topnav .brand { font-weight: 600; font-size: 0.9rem; color: var(--forest); letter-spacing: 0.01em; }
+  #topnav .brand span { color: var(--ink-faint); font-weight: 400; }
+  #step-label { font-size: 0.8rem; color: var(--ink-faint); white-space: nowrap; }
+
+  /* ---------- layout ---------- */
+  main { max-width: 860px; margin: 0 auto; padding: 96px 24px 120px; }
+  .screen { display: none; animation: fade 0.4s ease; }
+  .screen.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ---------- typography ---------- */
+  h1 { font-family: var(--serif); font-size: 2.3rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; }
+  h2 { font-family: var(--serif); font-size: 1.75rem; line-height: 1.2; font-weight: 600; margin-bottom: 0.4em; }
+  h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.3em; color: var(--forest-deep); }
+  p { margin-bottom: 0.9em; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--sky); }
+
+  .eyebrow {
+    display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--forest); margin-bottom: 12px;
+    padding: 4px 12px; background: var(--moss-soft); border-radius: 20px;
+  }
+  .lede { font-size: 1.15rem; color: var(--ink-soft); margin-top: 16px; }
+
+  /* ---------- cards ---------- */
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 24px 26px; margin: 18px 0;
+    box-shadow: var(--shadow);
+  }
+  .card h3 { margin-top: 0; }
+  .card p:last-child { margin-bottom: 0; }
+
+  .icon-badge {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 12px; flex: none;
+  }
+  .b-forest { background: var(--moss-soft); color: var(--forest); }
+  .b-clay { background: var(--clay-soft); color: var(--clay); }
+  .b-gold { background: var(--gold-soft); color: var(--gold); }
+  .b-sky { background: var(--sky-soft); color: var(--sky); }
+
+  ul.clean { list-style: none; margin: 8px 0 4px; }
+  ul.clean li { padding: 7px 0 7px 28px; position: relative; color: var(--ink-soft); border-bottom: 1px solid var(--line); }
+  ul.clean li:last-child { border-bottom: none; }
+  ul.clean li::before {
+    content: "›"; position: absolute; left: 6px; top: 6px;
+    color: var(--moss); font-weight: 700; font-size: 1.1rem;
+  }
+
+  /* ---------- reveal accordion ---------- */
+  .reveal { border: 1px solid var(--line); border-radius: 10px; margin: 10px 0; overflow: hidden; background: var(--card); }
+  .reveal-q {
+    padding: 15px 18px; cursor: pointer; font-weight: 600; color: var(--ink);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    user-select: none; transition: background 0.2s;
+  }
+  .reveal-q:hover { background: var(--moss-soft); }
+  .reveal-q .chev { color: var(--moss); transition: transform 0.25s; font-size: 1.1rem; flex: none; }
+  .reveal.open .reveal-q .chev { transform: rotate(90deg); }
+  .reveal-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .reveal-a .inner { padding: 0 18px 16px; color: var(--ink-soft); }
+
+  /* ---------- quiz ---------- */
+  .quiz-item { margin: 16px 0; }
+  .quiz-q { font-weight: 600; font-size: 1.1rem; margin-bottom: 12px; color: var(--ink); }
+  .quiz-q .qnum { color: var(--moss); margin-right: 8px; }
+  .opt {
+    display: block; width: 100%; text-align: left; padding: 13px 16px; margin: 8px 0;
+    background: var(--card); border: 1.5px solid var(--line-strong); border-radius: 10px;
+    cursor: pointer; font-size: 0.98rem; font-family: inherit; color: var(--ink);
+    transition: all 0.18s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--moss); background: var(--moss-soft); }
+  .opt:disabled { cursor: default; }
+  .opt.correct { border-color: var(--forest); background: var(--moss-soft); }
+  .opt.wrong { border-color: var(--clay); background: var(--clay-soft); }
+  .opt .mark { float: right; font-weight: 700; }
+  .explain {
+    margin-top: 10px; padding: 14px 16px; border-radius: 10px;
+    background: var(--gold-soft); border: 1px solid #ecd9ab; color: var(--ink-soft);
+    font-size: 0.95rem; display: none;
+  }
+  .explain.show { display: block; animation: fade 0.3s ease; }
+  .explain strong { color: var(--forest-deep); }
+
+  /* ---------- knowledge check pill row ---------- */
+  .check-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .check-head .pill {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--sky); background: var(--sky-soft); padding: 3px 10px; border-radius: 12px;
+  }
+
+  /* ---------- callout ---------- */
+  .callout {
+    border-radius: 12px; padding: 18px 20px; margin: 18px 0;
+    border: 1px solid; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .callout .ci { font-size: 1.3rem; flex: none; line-height: 1.4; }
+  .callout.warn { background: var(--clay-soft); border-color: #e4b5ad; }
+  .callout.warn strong { color: var(--clay); }
+  .callout.note { background: var(--sky-soft); border-color: #b8d4da; }
+  .callout.note strong { color: var(--sky); }
+  .callout.good { background: var(--moss-soft); border-color: #c3d9a0; }
+  .callout.good strong { color: var(--forest); }
+  .callout p { margin: 0; }
+
+  /* ---------- two col ---------- */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+
+  /* ---------- score scale ---------- */
+  .scale-row { display: flex; align-items: flex-start; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+  .scale-row:last-child { border-bottom: none; }
+  .scale-num {
+    width: 34px; height: 34px; border-radius: 8px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.05rem; color: #fff;
+  }
+  .s1 { background: #b0503f; } .s2 { background: #cf8a3d; } .s3 { background: #8a9a5b; }
+  .s4 { background: #4e8a4f; } .s5 { background: var(--forest); }
+  .scale-row .txt strong { display: block; color: var(--ink); }
+  .scale-row .txt span { font-size: 0.92rem; color: var(--ink-soft); }
+
+  /* ---------- nav buttons ---------- */
+  .navbtns { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; gap: 12px; }
+  .btn {
+    font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    padding: 12px 26px; border-radius: 10px; border: 1.5px solid var(--forest);
+    transition: all 0.18s;
+  }
+  .btn-primary { background: var(--forest); color: #fff; }
+  .btn-primary:hover { background: var(--forest-deep); border-color: var(--forest-deep); }
+  .btn-ghost { background: transparent; color: var(--forest); border-color: var(--line-strong); }
+  .btn-ghost:hover { border-color: var(--forest); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .locked-note { font-size: 0.85rem; color: var(--ink-faint); font-style: italic; }
+
+  /* ---------- module index (home) ---------- */
+  .mod-list { margin: 24px 0; }
+  .mod-item {
+    display: flex; align-items: center; gap: 16px; padding: 15px 18px; margin: 10px 0;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  }
+  .mod-item .n {
+    width: 30px; height: 30px; border-radius: 50%; background: var(--moss-soft); color: var(--forest);
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex: none;
+  }
+  .mod-item .lab strong { display: block; color: var(--ink); }
+  .mod-item .lab span { font-size: 0.87rem; color: var(--ink-faint); }
+
+  /* ---------- finish ---------- */
+  .finish-check {
+    width: 90px; height: 90px; border-radius: 50%; background: var(--forest);
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;
+    font-size: 2.6rem; color: #fff; animation: pop 0.5s ease;
+  }
+  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+  .center { text-align: center; }
+
+  .meta-line { font-size: 0.85rem; color: var(--ink-faint); margin-top: 8px; }
+  .refnote { font-size: 0.82rem; color: var(--ink-faint); border-top: 1px dashed var(--line-strong); padding-top: 12px; margin-top: 22px; }
+</style>
+</head>
+<body>
+
+<div id="progress-wrap"><div id="progress-bar"></div></div>
+<nav id="topnav">
+  <div class="inner">
+    <div class="brand">Interviewer training <span>· self-paced</span></div>
+    <div id="step-label"></div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ SCREEN 0 · WELCOME ============ -->
+<section class="screen active" data-screen="0">
+  <span class="eyebrow">Before you interview</span>
+  <h1>Interviewing at our company</h1>
+  <p class="lede">A short, self-paced walk-through of how we run hiring — the process, how to interview well, how to score fairly, and the rules that keep it legal and respectful.</p>
+
+  <div class="card">
+    <h3>Why this exists</h3>
+    <p>If you're here, you're about to help choose who joins the team — thank you. Interviewing is a real skill and it carries real responsibility, both to the people we hire and to the candidates we don't. This covers everything you need to start, in about 20 minutes. Work through it at your own pace; you can stop and come back.</p>
+  </div>
+
+  <div class="mod-list">
+    <div class="mod-item"><div class="n">1</div><div class="lab"><strong>The hiring process &amp; your role</strong><span>How a role runs and what you own</span></div></div>
+    <div class="mod-item"><div class="n">2</div><div class="lab"><strong>Running a good interview</strong><span>Candidate experience &amp; technique</span></div></div>
+    <div class="mod-item"><div class="n">3</div><div class="lab"><strong>Scoring &amp; feedback</strong><span>The 1–5 scale and writing it up</span></div></div>
+    <div class="mod-item"><div class="n">4</div><div class="lab"><strong>Protected characteristics</strong><span>What you can and can't ask</span></div></div>
+    <div class="mod-item"><div class="n">5</div><div class="lab"><strong>Question quiz</strong><span>Safe or not? Test yourself</span></div></div>
+    <div class="mod-item"><div class="n">6</div><div class="lab"><strong>Unconscious bias</strong><span>Spotting your own blind spots</span></div></div>
+    <div class="mod-item"><div class="n">7</div><div class="lab"><strong>Data &amp; GDPR</strong><span>Handling candidate information</span></div></div>
+  </div>
+
+  <div class="navbtns">
+    <span></span>
+    <button class="btn btn-primary" onclick="go(1)">Start →</button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 1 · PROCESS & ROLE ============ -->
+<section class="screen" data-screen="1">
+  <span class="eyebrow">Module 1</span>
+  <h2>The hiring process &amp; your role</h2>
+  <p>Every role runs through the same shape. Knowing where you fit stops candidates from stalling in the pipeline.</p>
+
+  <div class="card">
+    <div class="icon-badge b-forest">◷</div>
+    <h3>How a role kicks off</h3>
+    <p>Before anyone interviews, the Hiring Manager (with the recruiter's support) prepares the scorecard, role specification, any test, the evaluation criteria and the structured questions. A Technical Reviewer may own the test and technical questions instead. The Hiring Manager and recruiter then agree the role details, seniority, salary range and sourcing strategy, and hold a kick-off with all interviewers to finalise the process and questions. Only then does the recruiter open the role in the applicant tracking system.</p>
+  </div>
+
+  <div class="card">
+    <div class="icon-badge b-forest">→</div>
+    <h3>Once the role is live</h3>
+    <ul class="clean">
+      <li>All interview feedback goes into the applicant tracking system — nowhere else.</li>
+      <li>Discuss candidates only in the dedicated role channel; keep sensitive topics (salary, right to work) in the confidential channel.</li>
+      <li>Review tests fast — at most within 24 hours of receiving them.</li>
+      <li>For every rejection from screening onwards, give the recruitment team constructive feedback.</li>
+      <li>Review divergent feedback quickly and make clear decisions to progress or offer.</li>
+    </ul>
+  </div>
+
+  <div class="callout note">
+    <span class="ci">◆</span>
+    <p><strong>You own the requirements.</strong> The Talent team supports you, but they aren't the technical experts. Drive the process forward — make decisions, compare feedback, be ready to offer. Don't be passive, and advertise the role through your own network too.</p>
+  </div>
+
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m1" data-qlabel="M1 · Where feedback is recorded"><span class="qnum">Q</span>Where must interview feedback be recorded?</div>
+      <button class="opt" data-correct="1">In the applicant tracking system<span class="mark"></span></button>
+      <button class="opt">In an email to the Hiring Manager<span class="mark"></span></button>
+      <button class="opt">In the role's Slack channel<span class="mark"></span></button>
+      <div class="explain"><strong>Correct: the applicant tracking system.</strong> Feedback lives there and nowhere else — it's the single source of truth and it's what candidates can request under GDPR. Slack channels get deleted, and candidate data doesn't belong in email.</div>
+    </div>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(0)">← Back</button>
+    <button class="btn btn-primary" data-next disabled onclick="go(2)">Continue →</button>
+  </div>
+  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+</section>
+
+<!-- ============ SCREEN 2 · GOOD INTERVIEW ============ -->
+<section class="screen" data-screen="2">
+  <span class="eyebrow">Module 2</span>
+  <h2>Running a good interview</h2>
+  <p>An interview is a two-way sell. You're assessing the candidate, but they're also deciding whether they want to join us.</p>
+
+  <div class="callout good">
+    <span class="ci">♦</span>
+    <p><strong>We don't need a bad cop.</strong> Being interviewed is hard. Support the candidate the way you'd support a colleague — it isn't an exam, and you're not there to catch them out. Happy candidates are far less likely to be upset by anything, even a rejection.</p>
+  </div>
+
+  <div class="card">
+    <div class="icon-badge b-forest">☺</div>
+    <h3>Candidate experience</h3>
+    <ul class="clean">
+      <li>Introduce yourself — say what you do, describe the team and the role.</li>
+      <li>Be respectful and friendly; don't leave them to struggle.</li>
+      <li>Remember we're selling ourselves to them, too.</li>
+      <li>Always leave time for their questions.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="icon-badge b-forest">?</div>
+    <h3>Interview technique</h3>
+    <p>Click each to expand.</p>
+    <div class="reveal"><div class="reveal-q">Prepare, and set a timing structure <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Ask the Talent team for support or training. Going in with a plan and a rough time budget for each section keeps you from running out of road.</div></div></div>
+    <div class="reveal"><div class="reveal-q">Ask open-ended questions <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Avoid yes/no and unintended leading questions. Base questions on the candidate's real prior experience, and don't guide them toward the "right" answer — unless you're consciously choosing to support them.</div></div></div>
+    <div class="reveal"><div class="reveal-q">Investigate with follow-ups <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Explore. Get the details and the blind alleys they went down. If a first answer doesn't convince you, come at the issue from another angle to check.</div></div></div>
+    <div class="reveal"><div class="reveal-q">Share a narrative, and trust your judgement <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Tell the story of the company, the team and where the role fits. Respect your own knowledge, and look for evidence both for and against each interview criterion.</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="icon-badge b-forest">▤</div>
+    <h3>Structured questions</h3>
+    <p>Pick the criteria you're checking, set a topic, and build a small framework of questions inside it. Favour <strong>real work examples over hypotheticals</strong>, and record evidence for and against the criteria — not just a gut feeling.</p>
+  </div>
+
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m2" data-qlabel="M2 · Handling a vague answer"><span class="qnum">Q</span>A candidate gives a vague answer and you're not convinced. What's the best move?</div>
+      <button class="opt">Mark the criterion as failed and move on<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Approach the topic from another angle to gather more evidence<span class="mark"></span></button>
+      <button class="opt">Hint at the answer you're hoping to hear<span class="mark"></span></button>
+      <div class="explain"><strong>Explore before you conclude.</strong> A weak first answer isn't always a weak candidate — subtle follow-ups from a different angle let you check properly. Hinting contaminates the evidence, and giving up too early means you score on too little.</div>
+    </div>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(1)">← Back</button>
+    <button class="btn btn-primary" data-next disabled onclick="go(3)">Continue →</button>
+  </div>
+  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+</section>
+
+<!-- ============ SCREEN 3 · SCORING ============ -->
+<section class="screen" data-screen="3">
+  <span class="eyebrow">Module 3</span>
+  <h2>Scoring &amp; feedback</h2>
+  <p>We grade each skill from 1 to 5. Consistent scoring is what lets us compare candidates fairly and calibrate over time.</p>
+
+  <div class="card">
+    <h3>The 1–5 scale</h3>
+    <div class="scale-row"><div class="scale-num s1">1</div><div class="txt"><strong>Absent</strong><span>Absent or very weak.</span></div></div>
+    <div class="scale-row"><div class="scale-num s2">2</div><div class="txt"><strong>Low</strong><span>Inconsistent, low-quality outcomes, or needs a lot of guidance.</span></div></div>
+    <div class="scale-row"><div class="scale-num s3">3</div><div class="txt"><strong>Average</strong><span>Consistent, average outcomes; may need guidance in more complex situations.</span></div></div>
+    <div class="scale-row"><div class="scale-num s4">4</div><div class="txt"><strong>Good</strong><span>High-quality, creative or innovative outcomes; works independently.</span></div></div>
+    <div class="scale-row"><div class="scale-num s5">5</div><div class="txt"><strong>Exceptional</strong><span>Would raise the level of the team; a value champion who helps others improve.</span></div></div>
+  </div>
+
+  <div class="callout warn">
+    <span class="ci">▲</span>
+    <p><strong>No evidence? Leave it blank.</strong> Don't default to a 3 — a 3 is read as "I checked this skill and it's average." Blank means "I didn't gather enough evidence to judge," which is honest and useful. These are very different signals.</p>
+  </div>
+
+  <div class="callout note">
+    <span class="ci">◷</span>
+    <p><strong>Speed matters.</strong> We need an overall yes/no as soon as possible so the process can keep moving. If you can't complete your scorecard within an hour or two, flag it in the dedicated channel — a fast yes/no lets the recruiter act while you finish the written detail. Complete all feedback within 24 hours.</p>
+  </div>
+
+  <div class="card">
+    <h3>Writing it up</h3>
+    <ul class="clean">
+      <li>Keep the tone professional — candidates can request their scorecards under GDPR.</li>
+      <li>Be specific and evidence-based; say <em>why</em> you reached a decision.</li>
+      <li>It's fine to flag areas of concern or "needs further assessment" if you're unsure.</li>
+      <li>When rejecting, pick one main reason from the agreed criteria — multiple reasons are fine, but name the key one.</li>
+      <li>Remember to actually submit the scorecard when you're done.</li>
+    </ul>
+  </div>
+
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m3" data-qlabel="M3 · Scoring with no evidence"><span class="qnum">Q</span>You didn't gather enough evidence to judge a candidate's data skills. What do you enter?</div>
+      <button class="opt">A 3 — it's neutral<span class="mark"></span></button>
+      <button class="opt">A 1 — no evidence means weak<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Leave it blank<span class="mark"></span></button>
+      <div class="explain"><strong>Blank.</strong> A 3 says you assessed the skill and found it average; a 1 says you assessed it and found it absent. Neither is true if you simply didn't get evidence. Blank keeps your scorecard honest and tells the team this skill still needs checking.</div>
+    </div>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(2)">← Back</button>
+    <button class="btn btn-primary" data-next disabled onclick="go(4)">Continue →</button>
+  </div>
+  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+</section>
+
+<!-- ============ SCREEN 4 · PROTECTED CHARACTERISTICS ============ -->
+<section class="screen" data-screen="4">
+  <span class="eyebrow">Module 4</span>
+  <h2>Protected characteristics</h2>
+  <p>These are traits the law protects from discrimination. You must not ask about them, record them, or let them enter a hiring decision — directly or indirectly.</p>
+
+  <div class="card">
+    <div class="icon-badge b-clay">⊘</div>
+    <h3>Don't ask about, or record, any of these</h3>
+    <div class="cols">
+      <ul class="clean">
+        <li>Race, nationality or ethnic origin</li>
+        <li>Sex</li>
+        <li>Pregnancy, family or children</li>
+        <li>Sexual orientation</li>
+        <li>Religion, belief or political opinion</li>
+        <li>Gender reassignment</li>
+      </ul>
+      <ul class="clean">
+        <li>Disability (physical or mental, incl. HIV status)</li>
+        <li>Age</li>
+        <li>Marriage &amp; civil partnership status</li>
+        <li>Trade union membership</li>
+      </ul>
+    </div>
+    <p class="meta-line">Grounded in the EU Charter of Fundamental Rights (Art. 21), the UK Equality Act 2010, and equivalent national law. Some countries protect more — France, for example, recognises 25 characteristics.</p>
+  </div>
+
+  <div class="card">
+    <h3>Direct vs. indirect discrimination</h3>
+    <div class="reveal"><div class="reveal-q">Direct discrimination <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Treating someone worse <em>because of</em> a protected characteristic. Example: not hiring someone because of their age. A direct question would be "How old are you?"</div></div></div>
+    <div class="reveal"><div class="reveal-q">Indirect discrimination <span class="chev">›</span></div><div class="reveal-a"><div class="inner">A requirement that looks neutral but unfairly disadvantages a protected group. Example: demanding a degree the role doesn't actually need can disadvantage younger candidates. Best practice: avoid "years of experience" and non-essential requirements on the spec.</div></div></div>
+    <div class="reveal"><div class="reveal-q">Questions that could be read that way <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Even indirect probes count. "Are you planning on having a family?" discriminates on sex and pregnancy. Before asking anything, pause: could this be interpreted as asking about a protected characteristic, or disadvantage people who have one?</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="icon-badge b-forest">✓</div>
+    <h3>What you can ask about</h3>
+    <ul class="clean">
+      <li><strong>Role competency</strong> — anything directly related to doing the job, ideally the core criteria set by the Hiring Manager.</li>
+      <li><strong>Professional abilities</strong> — communication, motivation, initiative, management skills.</li>
+      <li><strong>Language skills</strong> — the ability to use languages the role genuinely needs. You can require fluency and reject if it's insufficient.</li>
+    </ul>
+    <div class="callout note" style="margin-top:16px;">
+      <span class="ci">◆</span>
+      <p><strong>Keep it simple.</strong> The recruitment team handles right to work, location, salary and reasonable adjustments. Focus on professional requirements. If a candidate volunteers protected information in casual chat, that's fine socially — but don't record it and don't let it influence your decision. Keep social conversation clearly separate from the interview.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>When in doubt, don't ask</h3>
+    <p>Rules differ by country, and some questions are legal in one place and not another. Don't rely on legality as your test — we hold to a higher, consistent standard everywhere: if a question is personal rather than about the job, leave it out, whether or not it's technically allowed. A few common examples to steer clear of:</p>
+    <ul class="clean">
+      <li>Current or previous salary — ask about <em>expectations</em> instead.</li>
+      <li>Whether someone uses drugs, drinks, or their health and lifestyle.</li>
+      <li>Whether they're a "native" speaker — you <em>can</em> require the fluency the role genuinely needs, but that's about the role, not their background.</li>
+    </ul>
+    <p style="margin-bottom:0;">The safe habit is simple: if you're unsure whether a question is okay, it isn't one you need to ask — so don't. The recruitment team can handle anything that genuinely needs answering.</p>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(3)">← Back</button>
+    <button class="btn btn-primary" onclick="go(5)">Continue →</button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 5 · QUESTION QUIZ ============ -->
+<section class="screen" data-screen="5">
+  <span class="eyebrow">Module 5</span>
+  <h2>Safe or not safe?</h2>
+  <p>Six real questions. For each, decide whether it's safe to ask an interview candidate — then reveal why. Answer all six to continue.</p>
+
+  <div class="card" data-quiz-multi>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="q1" data-qlabel="Q1 · Are you married?"><span class="qnum">1</span>"Are you married?"</div>
+      <button class="opt" data-c="0">Safe<span class="mark"></span></button>
+      <button class="opt" data-c="1">Not safe<span class="mark"></span></button>
+      <div class="explain"><strong>Not safe.</strong> This is a direct question about marital status — a protected characteristic.</div>
+    </div>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="q2" data-qlabel="Q2 · What do you enjoy outside work?"><span class="qnum">2</span>"What do you enjoy doing outside of work?"</div>
+      <button class="opt" data-c="0">Safe<span class="mark"></span></button>
+      <button class="opt" data-c="1">Not safe<span class="mark"></span></button>
+      <div class="explain"><strong>Best avoided.</strong> Not obviously discriminatory, but it's overly broad and invites protected information. If a hobby is genuinely relevant to the role, ask about that skill directly and consistently instead.</div>
+    </div>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="q3" data-qlabel="Q3 · Where are you from?"><span class="qnum">3</span>"Where are you from?"</div>
+      <button class="opt" data-c="0">Safe<span class="mark"></span></button>
+      <button class="opt" data-c="1">Not safe<span class="mark"></span></button>
+      <div class="explain"><strong>Not safe.</strong> It asks about nationality — a protected characteristic. Even answered as a current location, it can imply discrimination if that place is associated with an ethnicity. Don't ask it in either sense.</div>
+    </div>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="q4" data-qlabel="Q4 · Managing a team of men?"><span class="qnum">4</span>"How do you feel about managing a team of men?"</div>
+      <button class="opt" data-c="0">Safe<span class="mark"></span></button>
+      <button class="opt" data-c="1">Not safe<span class="mark"></span></button>
+      <div class="explain"><strong>Not safe.</strong> It implies a woman might find managing men harder — discriminating on sex.</div>
+    </div>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="q5" data-qlabel="Q5 · When did you graduate?"><span class="qnum">5</span>"When did you graduate?"</div>
+      <button class="opt" data-c="0">Safe<span class="mark"></span></button>
+      <button class="opt" data-c="1">Not safe<span class="mark"></span></button>
+      <div class="explain"><strong>Not safe.</strong> A graduation date is a way of asking someone's age.</div>
+    </div>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="q6" data-qlabel="Q6 · Can you write in English?"><span class="qnum">6</span>"Can you write in English?"</div>
+      <button class="opt" data-c="1">Safe<span class="mark"></span></button>
+      <button class="opt" data-c="0">Not safe<span class="mark"></span></button>
+      <div class="explain"><strong>Safe — if the role needs it.</strong> If writing in English is a genuine requirement of the job, you can ask this.</div>
+    </div>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(4)">← Back</button>
+    <button class="btn btn-primary" data-next disabled onclick="go(6)">Continue →</button>
+  </div>
+  <p class="locked-note" data-lock>Answer all six above to continue.</p>
+</section>
+
+<!-- ============ SCREEN 6 · UNCONSCIOUS BIAS ============ -->
+<section class="screen" data-screen="6">
+  <span class="eyebrow">Module 6</span>
+  <h2>Unconscious bias</h2>
+  <p>We all have it — that's normal, and it's not a moral failing. The goal isn't to pretend you're free of bias; it's to notice it and deliberately push the other way, gathering evidence that challenges your first impression.</p>
+
+  <div class="card">
+    <h3>Three to watch for</h3>
+    <div class="reveal"><div class="reveal-q">Affinity bias <span class="chev">›</span></div><div class="reveal-a"><div class="inner">An unconscious preference for people who are similar to you — same interests, background or experiences. You simply click with them more, and that can quietly inflate your read of them.</div></div></div>
+    <div class="reveal"><div class="reveal-q">Confirmation bias <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Seeking out information that confirms what you already believe, and dismissing anything that contradicts it. Once you've formed an early impression, you start collecting evidence <em>for</em> it and ignoring the rest.</div></div></div>
+    <div class="reveal"><div class="reveal-q">Halo / horns effect <span class="chev">›</span></div><div class="reveal-a"><div class="inner">One strong impression bleeds into everything else. The <strong>halo</strong>: a positive in one area (say, a prestigious employer) makes you assume they're excellent everywhere. The <strong>horns</strong> is the same in reverse — one negative colours your whole view.</div></div></div>
+  </div>
+
+  <div class="callout good">
+    <span class="ci">♦</span>
+    <p><strong>The counter-move is the same every time.</strong> Whenever you notice a strong pull — "I love that company, everything they say will be brilliant" — deliberately ask for the concrete evidence and real examples behind it. Let the evidence decide, not the halo.</p>
+  </div>
+
+  <div class="check-head"><span class="pill">Scenario check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m6" data-qlabel="M6 · Identifying a bias"><span class="qnum">Q</span>A candidate went to your university and you immediately warm to them. Which bias is this, and what should you do?</div>
+      <button class="opt" data-correct="1">Affinity bias — deliberately probe for hard evidence rather than coasting on the connection<span class="mark"></span></button>
+      <button class="opt">Halo effect — score them higher to reflect the strong school<span class="mark"></span></button>
+      <button class="opt">No bias — shared background is a fair signal of fit<span class="mark"></span></button>
+      <div class="explain"><strong>Affinity bias.</strong> The shared background is creating the warmth, not the candidate's actual ability. Notice it, then push the other way — ask for specific evidence and examples so your score rests on what they can do, not where they've been.</div>
+    </div>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(5)">← Back</button>
+    <button class="btn btn-primary" data-next disabled onclick="go(7)">Continue →</button>
+  </div>
+  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+</section>
+
+<!-- ============ SCREEN 7 · GDPR ============ -->
+<section class="screen" data-screen="7">
+  <span class="eyebrow">Module 7</span>
+  <h2>Data &amp; GDPR</h2>
+  <p>Candidate data is personal data, and the law is strict about it. The rules are simple to follow once you know them.</p>
+
+  <div class="card">
+    <div class="icon-badge b-sky">▤</div>
+    <h3>The rules for interviewers</h3>
+    <ul class="clean">
+      <li><strong>Interview notes</strong> — keep them professional, role-related and evidence-based. Candidates can request them under GDPR, or they can surface as evidence in a discrimination case.</li>
+      <li><strong>Email</strong> — no candidate data in emails; let the recruitment team manage communications.</li>
+      <li><strong>Slack</strong> — discuss candidates only in the dedicated role channels, which are deleted after use.</li>
+      <li><strong>Downloads</strong> — don't download or save candidate data.</li>
+      <li><strong>Notes</strong> — any digital or physical notes must be transferred into the tracking system, then deleted or destroyed.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>A note on how recruiters differ</h3>
+    <p>Recruiters operate under a few adjusted rules — for example, they may hold candidate data in email under a one-year deletion policy, and they manage the auto-deletion of downloaded files. As an interviewer you don't need these exceptions; the tighter rules above are yours. If you're ever unsure whether something's allowed, ask the recruitment team rather than guessing.</p>
+  </div>
+
+  <div class="callout warn">
+    <span class="ci">▲</span>
+    <p><strong>Why this genuinely matters.</strong> Breaching GDPR — for instance, downloading a candidate's CV to a device and keeping it — can expose the company to a maximum fine of €20 million or 4% of annual global turnover, whichever is greater. Following these rules protects candidates and protects the company. Please look after both.</p>
+  </div>
+
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m7" data-qlabel="M7 · Handling a CV by email"><span class="qnum">Q</span>A candidate emails you their CV directly. What should you do?</div>
+      <button class="opt">Save it to your desktop so you have it for the interview<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Don't download it — let the recruitment team handle it through the proper system<span class="mark"></span></button>
+      <button class="opt">Forward it to the whole interview panel by email<span class="mark"></span></button>
+      <div class="explain"><strong>Don't download or save it.</strong> Candidate data belongs in the tracking system, managed by recruitment — not on your device or spread across emails. Saving CVs locally is exactly the kind of breach that carries those fines.</div>
+    </div>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(6)">← Back</button>
+    <button class="btn btn-primary" data-next disabled onclick="go(8)">Finish →</button>
+  </div>
+  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+</section>
+
+<!-- ============ SCREEN 8 · FINISH ============ -->
+<section class="screen" data-screen="8">
+  <div class="center">
+    <div class="finish-check">✓</div>
+    <h2>You're ready to interview</h2>
+    <p class="lede" style="max-width:520px;margin:16px auto 0;">That's everything. You know the process, how to run a fair and friendly interview, how to score honestly, what you can and can't ask, how to check your own biases, and how to handle candidate data.</p>
+  </div>
+
+  <div class="card" style="margin-top:32px;">
+    <h3>Send your completion record</h3>
+    <p>Pop your name in and copy your results, then paste them to your P&amp;C team on Slack. This lets the team keep a light record that you've completed the training.</p>
+    <input type="text" id="learner-name" placeholder="Your name" oninput="renderResults()"
+      style="width:100%;padding:12px 14px;font-family:inherit;font-size:1rem;border:1.5px solid var(--line-strong);border-radius:10px;margin:6px 0 4px;color:var(--ink);background:var(--card);">
+    <div id="score-summary" style="margin:16px 0 4px;"></div>
+    <div id="results-breakdown"></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;">
+      <button class="btn btn-primary" id="copy-btn" onclick="copyResults()">Copy results</button>
+    </div>
+    <p class="locked-note" id="copy-status" style="display:none;margin-top:12px;">Copied — now paste it to your P&amp;C team on Slack.</p>
+  </div>
+
+  <div class="card" style="margin-top:32px;">
+    <h3>The five things worth remembering</h3>
+    <ul class="clean">
+      <li>You own the requirements — drive the process, don't wait to be pushed.</li>
+      <li>Support the candidate; you're selling the company as much as assessing them.</li>
+      <li>Score 1–5 on evidence — and leave it blank if you don't have any.</li>
+      <li>Before any question, ask: could this touch a protected characteristic?</li>
+      <li>Candidate data stays in the tracking system — never your inbox or desktop.</li>
+    </ul>
+  </div>
+
+  <div class="callout note">
+    <span class="ci">◆</span>
+    <p><strong>Still unsure about something?</strong> Your recruiter is the person to ask — about the process, a tricky question, a scorecard, anything. That's what they're there for.</p>
+  </div>
+
+  <div class="navbtns">
+    <button class="btn btn-ghost" onclick="go(0); window.scrollTo(0,0);">Start over</button>
+    <span></span>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const TOTAL = 8;
+  const screens = document.querySelectorAll('.screen');
+  const bar = document.getElementById('progress-bar');
+  const stepLabel = document.getElementById('step-label');
+  let current = 0;
+
+  function go(n) {
+    screens.forEach(s => s.classList.remove('active'));
+    const target = document.querySelector('.screen[data-screen="'+n+'"]');
+    target.classList.add('active');
+    current = n;
+    bar.style.width = (n / TOTAL * 100) + '%';
+    stepLabel.textContent = n === 0 ? 'Welcome' : (n > TOTAL - 1 ? 'Complete' : 'Step ' + n + ' of ' + (TOTAL - 1));
+    if (n === 8) renderResults();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---- reveal accordions ---- */
+  document.querySelectorAll('.reveal-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const r = q.closest('.reveal');
+      const a = r.querySelector('.reveal-a');
+      const open = r.classList.toggle('open');
+      a.style.maxHeight = open ? a.querySelector('.inner').scrollHeight + 20 + 'px' : 0;
+    });
+  });
+
+  /* ---- results store (in-memory, keyed by question id) ---- */
+  const results = {};   // qid -> { label, correct }
+  function record(item, correct) {
+    const q = item.querySelector('.quiz-q');
+    const qid = q.dataset.qid;
+    if (qid) results[qid] = { label: q.dataset.qlabel || qid, correct: correct };
+  }
+
+  /* ---- single-question knowledge checks ---- */
+  document.querySelectorAll('[data-quiz]').forEach(box => {
+    const opts = box.querySelectorAll('.opt');
+    const explain = box.querySelector('.explain');
+    const screen = box.closest('.screen');
+    const item = box.querySelector('.quiz-item') || box;
+    opts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (box.dataset.done) return;
+        box.dataset.done = '1';
+        const correct = opt.dataset.correct === '1';
+        opts.forEach(o => {
+          o.disabled = true;
+          if (o.dataset.correct === '1') { o.classList.add('correct'); o.querySelector('.mark').textContent = '✓'; }
+        });
+        if (!correct) { opt.classList.add('wrong'); opt.querySelector('.mark').textContent = '✗'; }
+        explain.classList.add('show');
+        record(item, correct);
+        unlock(screen);
+      });
+    });
+  });
+
+  /* ---- multi-question quiz (module 5) ---- */
+  document.querySelectorAll('[data-quiz-multi]').forEach(box => {
+    const items = box.querySelectorAll('.quiz-item');
+    const screen = box.closest('.screen');
+    let answered = 0;
+    items.forEach(item => {
+      const opts = item.querySelectorAll('.opt');
+      const explain = item.querySelector('.explain');
+      opts.forEach(opt => {
+        opt.addEventListener('click', () => {
+          if (item.dataset.done) return;
+          item.dataset.done = '1';
+          answered++;
+          const correct = opt.dataset.c === '1';
+          opts.forEach(o => {
+            o.disabled = true;
+            if (o.dataset.c === '1') { o.classList.add('correct'); o.querySelector('.mark').textContent = '✓'; }
+          });
+          if (!correct) { opt.classList.add('wrong'); opt.querySelector('.mark').textContent = '✗'; }
+          explain.classList.add('show');
+          record(item, correct);
+          if (answered === items.length) unlock(screen);
+        });
+      });
+    });
+  });
+
+  function unlock(screen) {
+    const next = screen.querySelector('[data-next]');
+    const lock = screen.querySelector('[data-lock]');
+    if (next) next.disabled = false;
+    if (lock) lock.style.display = 'none';
+  }
+
+  /* ---- results rendering on finish screen ---- */
+  const QORDER = ['m1','m2','m3','q1','q2','q3','q4','q5','q6','m6','m7'];
+  function scored() {
+    const answered = QORDER.filter(id => results[id]);
+    const right = answered.filter(id => results[id].correct);
+    return { total: answered.length, correct: right.length };
+  }
+  function renderResults() {
+    const s = scored();
+    const sumEl = document.getElementById('score-summary');
+    const bd = document.getElementById('results-breakdown');
+    if (!sumEl) return;
+    const pct = s.total ? Math.round(s.correct / s.total * 100) : 0;
+    sumEl.innerHTML = '<div style="font-size:1.4rem;font-weight:700;color:var(--forest-deep);">'
+      + s.correct + ' of ' + s.total + ' correct'
+      + ' <span style="font-size:1rem;font-weight:400;color:var(--ink-faint);">(' + pct + '%)</span></div>';
+    let rows = '';
+    QORDER.forEach(id => {
+      if (!results[id]) return;
+      const r = results[id];
+      const icon = r.correct ? '✓' : '✗';
+      const col = r.correct ? 'var(--forest)' : 'var(--clay)';
+      rows += '<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:0.92rem;">'
+        + '<span style="color:' + col + ';font-weight:700;flex:none;">' + icon + '</span>'
+        + '<span style="color:var(--ink-soft);">' + r.label + '</span></div>';
+    });
+    bd.innerHTML = rows;
+  }
+  function resultsText() {
+    const s = scored();
+    const name = (document.getElementById('learner-name').value || '').trim() || '(name not entered)';
+    const date = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' });
+    let t = 'Interviewer training — completion record\n';
+    t += '=========================================\n';
+    t += 'Name: ' + name + '\n';
+    t += 'Date completed: ' + date + '\n';
+    t += 'Score: ' + s.correct + ' of ' + s.total + ' knowledge checks correct\n\n';
+    t += 'Question breakdown:\n';
+    QORDER.forEach(id => {
+      if (!results[id]) return;
+      t += (results[id].correct ? '[correct]   ' : '[incorrect] ') + results[id].label + '\n';
+    });
+    return t;
+  }
+  function copyResults() {
+    const text = resultsText();
+    const status = document.getElementById('copy-status');
+    const done = () => { status.style.display = 'block'; setTimeout(() => status.style.display = 'none', 4000); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+    } else { fallbackCopy(text, done); }
+  }
+  function fallbackCopy(text, cb) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta); cb();
+  }
+
+  go(0);
+</script>
+</body>
+</html>
