@@ -186,6 +186,24 @@
   .scale-row .txt strong { display: block; color: var(--ink); }
   .scale-row .txt span { font-size: 0.92rem; color: var(--ink-soft); }
 
+  /* ---------- greenhouse rating mock ---------- */
+  .gh-mock { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; margin: 14px 0; }
+  .gh-row { display: flex; align-items: center; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .gh-row:last-of-type { border-bottom: none; }
+  .gh-skill { flex: 0 0 130px; font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+  .gh-dots { display: inline-flex; gap: 8px; flex: none; }
+  .gh-ic { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; color: var(--line-strong); flex: none; border-radius: 8px; }
+  .gh-ic svg { width: 24px; height: 24px; display: block; }
+  .gh-ic.on { color: #fff; background: var(--forest); }
+  .gh-val { font-size: 0.9rem; color: var(--ink-soft); margin-left: auto; }
+  .gh-val.gh-blank { font-style: italic; color: var(--ink-faint); }
+  .gh-cap { font-size: 0.82rem; color: var(--ink-faint); font-style: italic; margin: 12px 0 0; }
+  @media (max-width: 560px) {
+    .gh-row { flex-wrap: wrap; gap: 8px; }
+    .gh-skill { flex: 0 0 100%; }
+    .gh-val { margin-left: 0; }
+  }
+
   /* ---------- nav buttons ---------- */
   .navbtns { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; gap: 12px; }
   .btn {
@@ -384,6 +402,37 @@
     <div class="scale-row"><div class="scale-num s5">5</div><div class="txt"><strong>Exceptional</strong><span>Would raise the level of the team; a value champion who helps others improve.</span></div></div>
   </div>
 
+  <div class="card">
+    <h3>How it looks in Greenhouse</h3>
+    <p>In Greenhouse, each skill on the scorecard has a row of five icons running left to right, lowest to highest. The one you click is your score for that skill:</p>
+
+    <div class="gh-mock">
+      <div class="gh-row">
+        <span class="gh-skill">Critical thinking</span>
+        <span class="gh-dots">
+          <span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.7 8.7l6.6 6.6M15.3 8.7l-6.6 6.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M6.5 4h2.4v8.5H6.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.9 4h6.3c.9 0 1.6.7 1.45 1.6l-.85 5c-.13.78-.8 1.35-1.6 1.35h-2.5l.55 3.1c.16.9-.52 1.75-1.4 1.75-.48 0-.92-.3-1.1-.75L8.9 12.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><span class="gh-ic on"><svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M6.5 11.5h2.4V20H6.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.9 20h6.3c.9 0 1.6-.7 1.45-1.6l-.85-5c-.13-.78-.8-1.35-1.6-1.35h-2.5l.55-3.1c.16-.9-.52-1.75-1.4-1.75-.48 0-.92.3-1.1.75L8.9 11.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.77 6.8 19.5l.99-5.79-4.21-4.1 5.82-.85z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        </span>
+        <span class="gh-val">3 · Average</span>
+      </div>
+      <div class="gh-row">
+        <span class="gh-skill">Teamwork</span>
+        <span class="gh-dots">
+          <span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.7 8.7l6.6 6.6M15.3 8.7l-6.6 6.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M6.5 4h2.4v8.5H6.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.9 4h6.3c.9 0 1.6.7 1.45 1.6l-.85 5c-.13.78-.8 1.35-1.6 1.35h-2.5l.55 3.1c.16.9-.52 1.75-1.4 1.75-.48 0-.92-.3-1.1-.75L8.9 12.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="gh-ic on"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M6.5 11.5h2.4V20H6.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.9 20h6.3c.9 0 1.6-.7 1.45-1.6l-.85-5c-.13-.78-.8-1.35-1.6-1.35h-2.5l.55-3.1c.16-.9-.52-1.75-1.4-1.75-.48 0-.92.3-1.1.75L8.9 11.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.77 6.8 19.5l.99-5.79-4.21-4.1 5.82-.85z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        </span>
+        <span class="gh-val">4 · Good</span>
+      </div>
+      <div class="gh-row">
+        <span class="gh-skill">Hunger</span>
+        <span class="gh-dots">
+          <span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.7 8.7l6.6 6.6M15.3 8.7l-6.6 6.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M6.5 4h2.4v8.5H6.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.9 4h6.3c.9 0 1.6.7 1.45 1.6l-.85 5c-.13.78-.8 1.35-1.6 1.35h-2.5l.55 3.1c.16.9-.52 1.75-1.4 1.75-.48 0-.92-.3-1.1-.75L8.9 12.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 12h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M6.5 11.5h2.4V20H6.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.9 20h6.3c.9 0 1.6-.7 1.45-1.6l-.85-5c-.13-.78-.8-1.35-1.6-1.35h-2.5l.55-3.1c.16-.9-.52-1.75-1.4-1.75-.48 0-.92.3-1.1.75L8.9 11.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span><span class="gh-ic"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 3.5l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.77 6.8 19.5l.99-5.79-4.21-4.1 5.82-.85z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        </span>
+        <span class="gh-val gh-blank">left blank — no evidence</span>
+      </div>
+      <p class="gh-cap">Left to right: ✕ = 1 (absent), thumbs-down = 2 (low), neutral = 3 (average), thumbs-up = 4 (good), star = 5 (exceptional). A skill you couldn't assess stays unselected.</p>
+    </div>
+    <p>Once you've rated each skill, Greenhouse asks for an <strong>overall</strong> judgement on the candidate (a yes/no leaning) and a free-text summary for the team. When you're finished, click <strong>Submit Scorecard</strong> — feedback that isn't submitted can't be seen by the rest of the panel.</p>
+  </div>
+
   <div class="callout warn">
     <span class="ci">▲</span>
     <p><strong>No evidence? Leave it blank.</strong> Don't default to a 3 — a 3 is read as "I checked this skill and it's average." Blank means "I didn't gather enough evidence to judge," which is honest and useful. These are very different signals.</p>
@@ -476,7 +525,7 @@
     <h3>When in doubt, don't ask</h3>
     <p>Rules differ by country, and some questions are legal in one place and not another. Don't rely on legality as your test — we hold to a higher, consistent standard everywhere: if a question is personal rather than about the job, leave it out, whether or not it's technically allowed. A few common examples to steer clear of:</p>
     <ul class="clean">
-      <li>Current or previous salary — ask about <em>expectations</em> instead.</li>
+      <li>Salary — current, previous, or expectations. Leave the whole topic to the recruitment team; you don't need to raise it at all.</li>
       <li>Whether someone uses drugs, drinks, or their health and lifestyle.</li>
       <li>Whether they're a "native" speaker — you <em>can</em> require the fluency the role genuinely needs, but that's about the role, not their background.</li>
     </ul>
@@ -774,34 +823,53 @@
     const bd = document.getElementById('results-breakdown');
     if (!sumEl) return;
     const pct = s.total ? Math.round(s.correct / s.total * 100) : 0;
-    sumEl.innerHTML = '<div style="font-size:1.4rem;font-weight:700;color:var(--forest-deep);">'
-      + s.correct + ' of ' + s.total + ' correct'
-      + ' <span style="font-size:1rem;font-weight:400;color:var(--ink-faint);">(' + pct + '%)</span></div>';
+    const missed = s.total - s.correct;
+    const perfect = missed === 0 && s.total > 0;
+    const pctColor = perfect ? 'var(--forest)' : 'var(--clay)';
+    let sub;
+    if (s.total === 0) sub = 'No checks answered yet';
+    else if (perfect) sub = s.correct + ' of ' + s.total + ' correct — all clear';
+    else sub = s.correct + ' of ' + s.total + ' correct · ' + missed + ' to review';
+    sumEl.innerHTML =
+      '<div style="display:flex;align-items:baseline;gap:12px;">'
+      + '<span style="font-size:2.6rem;font-weight:700;line-height:1;color:' + pctColor + ';">' + pct + '%</span>'
+      + '<span style="font-size:1rem;color:var(--ink-soft);">' + sub + '</span></div>';
     let rows = '';
     QORDER.forEach(id => {
       if (!results[id]) return;
       const r = results[id];
       const icon = r.correct ? '✓' : '✗';
       const col = r.correct ? 'var(--forest)' : 'var(--clay)';
-      rows += '<div style="display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:0.92rem;">'
+      const bg = r.correct ? 'transparent' : 'var(--clay-soft)';
+      const weight = r.correct ? '400' : '600';
+      rows += '<div style="display:flex;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);font-size:0.92rem;background:' + bg + ';border-radius:6px;">'
         + '<span style="color:' + col + ';font-weight:700;flex:none;">' + icon + '</span>'
-        + '<span style="color:var(--ink-soft);">' + r.label + '</span></div>';
+        + '<span style="color:var(--ink-soft);font-weight:' + weight + ';">' + r.label + '</span></div>';
     });
     bd.innerHTML = rows;
   }
   function resultsText() {
     const s = scored();
+    const pct = s.total ? Math.round(s.correct / s.total * 100) : 0;
+    const missed = QORDER.filter(id => results[id] && !results[id].correct);
     const name = (document.getElementById('learner-name').value || '').trim() || '(name not entered)';
     const date = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' });
     let t = 'Interviewer training — completion record\n';
     t += '=========================================\n';
     t += 'Name: ' + name + '\n';
     t += 'Date completed: ' + date + '\n';
-    t += 'Score: ' + s.correct + ' of ' + s.total + ' knowledge checks correct\n\n';
-    t += 'Question breakdown:\n';
+    if (missed.length === 0) {
+      t += 'Score: ' + pct + '%  (' + s.correct + ' of ' + s.total + ' correct) — all correct\n\n';
+    } else {
+      t += 'Score: ' + pct + '%  (' + s.correct + ' of ' + s.total + ' correct)\n';
+      t += '\n>>> ' + missed.length + ' TO REVIEW:\n';
+      missed.forEach(id => { t += '    ✗ ' + results[id].label + '\n'; });
+      t += '\n';
+    }
+    t += 'Full breakdown:\n';
     QORDER.forEach(id => {
       if (!results[id]) return;
-      t += (results[id].correct ? '[correct]   ' : '[incorrect] ') + results[id].label + '\n';
+      t += (results[id].correct ? '[correct]   ' : '[MISSED]    ') + results[id].label + '\n';
     });
     return t;
   }
