@@ -155,6 +155,34 @@
     color: var(--sky); background: var(--sky-soft); padding: 3px 10px; border-radius: 12px;
   }
 
+  /* ---------- warm-up block (question-first, unscored) ---------- */
+  .warmup {
+    background: linear-gradient(180deg, var(--gold-soft), var(--card));
+    border: 1px solid #ecd9ab; border-radius: var(--radius);
+    padding: 22px 24px; margin: 18px 0 26px;
+  }
+  .warmup-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .warmup-head .pill {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--gold); background: #fff; border: 1px solid #ecd9ab; padding: 3px 10px; border-radius: 12px;
+  }
+  .warmup-intro { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 6px; }
+  .warmup .quiz-item { margin: 18px 0 0; }
+  .warmup .quiz-item + .quiz-item { border-top: 1px solid #ecd9ab; padding-top: 18px; }
+  .warmup .explain { background: #fff; border-color: #e6d3a3; }
+  .warmup .explain strong { color: var(--gold); }
+
+  /* ---------- always-visible level table (pillars) ---------- */
+  .levels { margin: 12px 0 4px; }
+  .level-row { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .level-row:last-child { border-bottom: none; }
+  .level-badge {
+    width: 30px; height: 30px; border-radius: 8px; flex: none; color: #fff;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem;
+  }
+  .level-row .lv-txt { font-size: 0.94rem; color: var(--ink-soft); }
+  .level-row .lv-txt strong { color: var(--ink); }
+
   /* ---------- callout ---------- */
   .callout {
     border-radius: 12px; padding: 18px 20px; margin: 18px 0;
@@ -291,6 +319,27 @@
   <h2>The hiring process &amp; your role</h2>
   <p>Every role runs through the same shape. Knowing where you fit stops candidates from stalling in the pipeline.</p>
 
+  <div class="warmup" data-warmup>
+    <div class="warmup-head"><span class="pill">Warm-up</span></div>
+    <p class="warmup-intro">Have a go before reading on — guessing is fine, and these don't count towards your score. Attempting first makes the rest stick better.</p>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1</span>You've just finished interviewing a candidate. Where do you think your feedback should go?</div>
+      <button class="opt" data-correct="1">Into the applicant tracking system<span class="mark"></span></button>
+      <button class="opt">In a quick email to the Hiring Manager<span class="mark"></span></button>
+      <button class="opt">Wherever's easiest — as long as someone sees it<span class="mark"></span></button>
+      <div class="explain"><strong>The tracking system.</strong> It's the single source of truth, it's what candidates can request under GDPR, and it keeps everyone's feedback in one comparable place. Email and Slack scatter it and aren't safe for candidate data. You'll see why below.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2</span>The recruiter is helpful and knows the process well. Whose job is it to actually drive a role forward — comparing feedback, making calls, being ready to offer?</div>
+      <button class="opt">The recruiter — it's their process to run<span class="mark"></span></button>
+      <button class="opt" data-correct="1">You, the Hiring Manager / interviewer — you own the requirements<span class="mark"></span></button>
+      <button class="opt">Whoever has time that week<span class="mark"></span></button>
+      <div class="explain"><strong>You do.</strong> The Talent team supports you, but they aren't the technical experts and can't judge the role for you. Passivity is where candidates stall — the section below spells out what "owning it" means in practice.</div>
+    </div>
+  </div>
+
   <div class="card">
     <div class="icon-badge b-forest">◷</div>
     <h3>How a role kicks off</h3>
@@ -325,11 +374,22 @@
     </div>
   </div>
 
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m1b" data-qlabel="M1 · Test turnaround"><span class="qnum">Q</span>A candidate submits their take-home test. What's the expectation on reviewing it?</div>
+      <button class="opt" data-correct="1">Review it fast — within 24 hours of receiving it<span class="mark"></span></button>
+      <button class="opt">Whenever the panel next meets<span class="mark"></span></button>
+      <button class="opt">Only once all candidates' tests are in, so you can compare<span class="mark"></span></button>
+      <div class="explain"><strong>Within 24 hours.</strong> Slow reviews are where good candidates go cold and accept other offers. Reviewing promptly keeps the pipeline moving and respects the effort they put in — waiting to batch-compare everyone costs you the people you most want.</div>
+    </div>
+  </div>
+
   <div class="navbtns">
     <button class="btn btn-ghost" onclick="go(0)">← Back</button>
     <button class="btn btn-primary" data-next disabled onclick="go(2)">Continue →</button>
   </div>
-  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+  <p class="locked-note" data-lock>Answer the checks above to continue.</p>
 </section>
 
 <!-- ============ SCREEN 2 · GOOD INTERVIEW ============ -->
@@ -337,6 +397,27 @@
   <span class="eyebrow">Module 2</span>
   <h2>Running a good interview</h2>
   <p>An interview is a two-way sell. You're assessing the candidate, but they're also deciding whether they want to join us.</p>
+
+  <div class="warmup" data-warmup>
+    <div class="warmup-head"><span class="pill">Warm-up</span></div>
+    <p class="warmup-intro">Try these before reading on — guessing is fine, and they don't count towards your score.</p>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1</span>A candidate is clearly struggling with a question and looking anxious. What's the best instinct?</div>
+      <button class="opt">Stay silent and let them sweat — it shows how they handle pressure<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Support them the way you would a colleague — it isn't an exam<span class="mark"></span></button>
+      <button class="opt">Move quickly to the next question to spare them<span class="mark"></span></button>
+      <div class="explain"><strong>Support them.</strong> You're not there to catch anyone out, and a "bad cop" act tells you little except how someone copes with being treated badly. A supported candidate gives you a truer read of their ability — and leaves with a good impression of us either way.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2</span>Which question is likely to give you the most useful evidence?</div>
+      <button class="opt">"Would you say you're a good team player?"<span class="mark"></span></button>
+      <button class="opt" data-correct="1">"Tell me about a time you disagreed with a teammate — what did you do?"<span class="mark"></span></button>
+      <button class="opt">"You'd handle conflict well, wouldn't you?"<span class="mark"></span></button>
+      <div class="explain"><strong>The second.</strong> It's open-ended and asks for a real example, so the candidate has to show you rather than just claim. The first invites a yes; the third is a leading question that hands them the answer. More on open questions and follow-ups below.</div>
+    </div>
+  </div>
 
   <div class="callout good">
     <span class="ci">♦</span>
@@ -357,11 +438,13 @@
   <div class="card">
     <div class="icon-badge b-forest">?</div>
     <h3>Interview technique</h3>
-    <p>Click each to expand.</p>
-    <div class="reveal"><div class="reveal-q">Prepare, and set a timing structure <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Ask the Talent team for support or training. Going in with a plan and a rough time budget for each section keeps you from running out of road.</div></div></div>
-    <div class="reveal"><div class="reveal-q">Ask open-ended questions <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Avoid yes/no and unintended leading questions. Base questions on the candidate's real prior experience, and don't guide them toward the "right" answer — unless you're consciously choosing to support them.</div></div></div>
-    <div class="reveal"><div class="reveal-q">Investigate with follow-ups <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Explore. Get the details and the blind alleys they went down. If a first answer doesn't convince you, come at the issue from another angle to check.</div></div></div>
-    <div class="reveal"><div class="reveal-q">Share a narrative, and trust your judgement <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Tell the story of the company, the team and where the role fits. Respect your own knowledge, and look for evidence both for and against each interview criterion.</div></div></div>
+    <p>Four habits that separate a useful interview from a pleasant chat:</p>
+    <div class="levels">
+      <div class="level-row"><div class="lv-txt"><strong>Prepare, and set a timing structure.</strong> Ask the Talent team for support or training. Going in with a plan and a rough time budget for each section keeps you from running out of road before you've covered what matters.</div></div>
+      <div class="level-row"><div class="lv-txt"><strong>Ask open-ended questions.</strong> Avoid yes/no and unintended leading questions. Base questions on the candidate's real prior experience, and don't guide them toward the "right" answer — unless you're consciously choosing to support them.</div></div>
+      <div class="level-row"><div class="lv-txt"><strong>Investigate with follow-ups.</strong> Explore. Get the details, and the blind alleys they went down. If a first answer doesn't convince you, come at the issue from another angle to check rather than concluding on too little.</div></div>
+      <div class="level-row"><div class="lv-txt"><strong>Share a narrative, and trust your judgement.</strong> Tell the story of the company, the team and where the role fits. Respect your own knowledge, and look for evidence both for and against each interview criterion.</div></div>
+    </div>
   </div>
 
   <div class="card">
@@ -381,90 +464,141 @@
     </div>
   </div>
 
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m2b" data-qlabel="M2 · Evidence over gut feeling"><span class="qnum">Q</span>At the end of an interview, what should your score rest on?</div>
+      <button class="opt" data-correct="1">Specific evidence for and against each criterion<span class="mark"></span></button>
+      <button class="opt">Your overall gut feeling about the person<span class="mark"></span></button>
+      <button class="opt">How much you enjoyed the conversation<span class="mark"></span></button>
+      <div class="explain"><strong>Evidence, recorded for and against each criterion.</strong> A gut feeling is exactly where bias hides — and it's impossible for the rest of the panel to sense-check. Concrete examples tied to the criteria make your score fair, defensible, and comparable with other interviewers'.</div>
+    </div>
+  </div>
+
   <div class="navbtns">
     <button class="btn btn-ghost" onclick="go(1)">← Back</button>
     <button class="btn btn-primary" data-next disabled onclick="go(3)">Continue →</button>
   </div>
-  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+  <p class="locked-note" data-lock>Answer the checks above to continue.</p>
 </section>
 
 <!-- ============ SCREEN 3 · THE THREE PILLARS ============ -->
 <section class="screen" data-screen="3">
   <span class="eyebrow">Module 3</span>
   <h2>The three pillars</h2>
-  <p>We assess every candidate against three cultural pillars. They're the backbone of the scorecard — the skills you're gathering evidence for throughout the interview, and what you'll score 1–5 in the next module.</p>
+  <p>We assess every candidate against three cultural pillars: Critical Thinking, Teamwork and Hunger. They're the backbone of the scorecard — the skills you gather evidence for throughout the interview, and what you'll score 1–5 in the next module.</p>
+
+  <div class="warmup" data-warmup>
+    <div class="warmup-head"><span class="pill">Warm-up</span></div>
+    <p class="warmup-intro">Have a go at these before reading on — it's fine to guess. Attempting first makes the explanations underneath stick better, and these don't count towards your score.</p>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1</span>A candidate solves a problem quickly, but when you ask how they reached it, they say "it just felt right" and can't point to any data or reasoning. Which pillar does this most raise a question about?</div>
+      <button class="opt" data-correct="1">Critical Thinking<span class="mark"></span></button>
+      <button class="opt">Teamwork<span class="mark"></span></button>
+      <button class="opt">Hunger<span class="mark"></span></button>
+      <div class="explain"><strong>Critical Thinking.</strong> A fast answer isn't the concern — the absence of checked assumptions, data or root-cause reasoning is. Critical Thinking is about <em>how</em> someone reaches a conclusion, not how quickly. You'd want to probe further before scoring it low, but this is the pillar it speaks to.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2</span>Two candidates both "share ideas well." One does it only when things are calm; the other keeps doing it under pressure and helps teammates do the same. In pillar terms, what separates them?</div>
+      <button class="opt">Nothing — both meet the bar equally<span class="mark"></span></button>
+      <button class="opt" data-correct="1">The level — consistency under pressure and lifting others is a higher level of the same pillar<span class="mark"></span></button>
+      <button class="opt">They're being assessed on different pillars<span class="mark"></span></button>
+      <div class="explain"><strong>It's the level, not the pillar.</strong> Both are Teamwork. The difference between a 3 and a 4–5 is exactly this: doing it consistently even under pressure (4), and mentoring others to do it too (5). The pillar tells you <em>what</em> you're looking at; the level tells you <em>how strongly</em> it shows up.</div>
+    </div>
+  </div>
+
+  <p>Here's what each pillar covers, and what the levels beneath it actually mean.</p>
 
   <div class="cols">
     <div class="card" style="margin:0;">
       <div class="icon-badge b-forest">◈</div>
-      <h3>Critical thinking</h3>
-      <p style="margin-bottom:0;font-size:0.92rem;">Critical thinking + Work on the problem. Seeking data, checking assumptions, finding root causes, and the consistency, novelty and quality of outcomes.</p>
+      <h3>Critical Thinking</h3>
+      <p style="margin-bottom:0;font-size:0.92rem;"><em>Critical thinking + Work on the problem.</em> Seeking data, checking assumptions, finding root causes, and the consistency, novelty and quality of outcomes.</p>
     </div>
     <div class="card" style="margin:0;">
       <div class="icon-badge b-sky">◈</div>
       <h3>Teamwork</h3>
-      <p style="margin-bottom:0;font-size:0.92rem;">Share ideas + Love what you do. Sharing feedback, knowledge and ideas, a positive attitude and motivation, and dealing well with pressure.</p>
+      <p style="margin-bottom:0;font-size:0.92rem;"><em>Share ideas + Love what you do.</em> Sharing feedback, knowledge and ideas, a positive attitude and motivation, and dealing well with pressure.</p>
     </div>
     <div class="card" style="margin:0;">
       <div class="icon-badge b-gold">◈</div>
       <h3>Hunger</h3>
-      <p style="margin-bottom:0;font-size:0.92rem;">Ownership + Keep it simple. Awareness of goals, ownership, goal-orientation, weighing cost-benefit tradeoffs, and creating high-impact solutions.</p>
+      <p style="margin-bottom:0;font-size:0.92rem;"><em>Ownership + Keep it simple.</em> Awareness of goals, ownership, goal-orientation, weighing cost-benefit tradeoffs, and creating high-impact solutions.</p>
     </div>
   </div>
 
   <h3 style="margin-top:26px;">What each score looks like</h3>
-  <p>Each pillar has a 1–5 behavioural definition. Open each to see the full breakdown — this is your reference when you're deciding a score.</p>
+  <p>Each pillar has a 1–5 behavioural definition. Two patterns run through all three: the jump from 3 to 4 is about doing it <strong>consistently and independently</strong> rather than only with guidance, and the jump from 4 to 5 is about <strong>lifting others</strong> — a 5 doesn't just do it well themselves, they raise the people around them. Keep those in mind as you read.</p>
 
   <div class="card">
-    <h3>Critical thinking · 1 to 5</h3>
-    <div class="reveal"><div class="reveal-q">1 — Absent <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Doesn't question assumptions, doesn't seek data or feedback and perspectives, acts on their first hypothesis, doesn't investigate root causes.</div></div></div>
-    <div class="reveal"><div class="reveal-q">2 — Low <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Inconsistently checks their own assumptions or seeks data and root causes.</div></div></div>
-    <div class="reveal"><div class="reveal-q">3 — Average <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Examines assumptions, root causes and data, but may require guidance.</div></div></div>
-    <div class="reveal"><div class="reveal-q">4 — Good <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Consistently examines assumptions, root causes and data; high-quality, novel problem-solving or original outcomes; acts independently.</div></div></div>
-    <div class="reveal"><div class="reveal-q">5 — Exceptional <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Encourages and guides others to improve their critical thinking, helping them address both immediate symptoms and root causes.</div></div></div>
+    <h3>Critical Thinking · 1 to 5</h3>
+    <div class="levels">
+      <div class="level-row"><div class="level-badge s1">1</div><div class="lv-txt"><strong>Absent.</strong> Doesn't question assumptions, doesn't seek data or other perspectives, acts on their first hypothesis, and doesn't investigate root causes.</div></div>
+      <div class="level-row"><div class="level-badge s2">2</div><div class="lv-txt"><strong>Low.</strong> Inconsistently checks their own assumptions, or only sometimes seeks data and root causes.</div></div>
+      <div class="level-row"><div class="level-badge s3">3</div><div class="lv-txt"><strong>Average.</strong> Examines assumptions, root causes and data — but may require guidance to do so.</div></div>
+      <div class="level-row"><div class="level-badge s4">4</div><div class="lv-txt"><strong>Good.</strong> Consistently examines assumptions, root causes and data; produces high-quality, novel problem-solving or original outcomes; acts independently.</div></div>
+      <div class="level-row"><div class="level-badge s5">5</div><div class="lv-txt"><strong>Exceptional.</strong> Encourages and guides others to improve their own critical thinking, helping them address both immediate symptoms and root causes.</div></div>
+    </div>
   </div>
 
   <div class="card">
     <h3>Teamwork · 1 to 5</h3>
-    <div class="reveal"><div class="reveal-q">1 — Absent <span class="chev">›</span></div><div class="reveal-a"><div class="inner">No sharing of feedback, knowledge or ideas; no motivation, or a negative attitude.</div></div></div>
-    <div class="reveal"><div class="reveal-q">2 — Low <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Inconsistently shares feedback, knowledge and ideas; occasionally motivated but mainly neutral or negative.</div></div></div>
-    <div class="reveal"><div class="reveal-q">3 — Average <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Consistently shares feedback, knowledge and ideas but may need guidance to do so; some motivation and a positive attitude to colleagues, but may become inconsistent under pressure.</div></div></div>
-    <div class="reveal"><div class="reveal-q">4 — Good <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Consistently shares high-quality feedback, ideas and knowledge without guidance; high motivation and a positive attitude to their role and colleagues, even under pressure.</div></div></div>
-    <div class="reveal"><div class="reveal-q">5 — Exceptional <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Shares, mentors and promotes the giving of feedback, sharing of ideas and knowledge, and motivation among colleagues.</div></div></div>
+    <div class="levels">
+      <div class="level-row"><div class="level-badge s1">1</div><div class="lv-txt"><strong>Absent.</strong> No sharing of feedback, knowledge or ideas; no motivation, or a negative attitude.</div></div>
+      <div class="level-row"><div class="level-badge s2">2</div><div class="lv-txt"><strong>Low.</strong> Inconsistently shares feedback, knowledge and ideas; occasionally motivated but mainly neutral or negative.</div></div>
+      <div class="level-row"><div class="level-badge s3">3</div><div class="lv-txt"><strong>Average.</strong> Consistently shares feedback, knowledge and ideas but may need guidance to do so; some motivation and a positive attitude to colleagues, but can waver under pressure.</div></div>
+      <div class="level-row"><div class="level-badge s4">4</div><div class="lv-txt"><strong>Good.</strong> Consistently shares high-quality feedback, ideas and knowledge without guidance; high motivation and a positive attitude to their role and colleagues, even under pressure.</div></div>
+      <div class="level-row"><div class="level-badge s5">5</div><div class="lv-txt"><strong>Exceptional.</strong> Shares, mentors and promotes the giving of feedback, sharing of ideas and knowledge, and motivation among colleagues.</div></div>
+    </div>
   </div>
 
   <div class="card">
     <h3>Hunger · 1 to 5</h3>
-    <div class="reveal"><div class="reveal-q">1 — Absent <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Limited awareness of goals, inconsistent ownership; complicated, time-consuming or low-quality solutions.</div></div></div>
-    <div class="reveal"><div class="reveal-q">2 — Low <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Takes some ownership and goal-orientation; occasionally simplifies solutions, or solutions are low-impact.</div></div></div>
-    <div class="reveal"><div class="reveal-q">3 — Average <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Takes ownership of their actions, decisions and outcomes and learns from them; goal-oriented, understands cost-benefit analysis, prioritises high-impact solutions but may need support.</div></div></div>
-    <div class="reveal"><div class="reveal-q">4 — Good <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Continuously improves; highly goal-oriented; connects work to business objectives; independently develops high-quality, consistently high-impact solutions.</div></div></div>
-    <div class="reveal"><div class="reveal-q">5 — Exceptional <span class="chev">›</span></div><div class="reveal-a"><div class="inner">A value champion — mentors or supports others in taking ownership, goal-orientation, understanding business needs and costs, and encourages the development of high-impact solutions.</div></div></div>
+    <div class="levels">
+      <div class="level-row"><div class="level-badge s1">1</div><div class="lv-txt"><strong>Absent.</strong> Limited awareness of goals, inconsistent ownership; complicated, time-consuming or low-quality solutions.</div></div>
+      <div class="level-row"><div class="level-badge s2">2</div><div class="lv-txt"><strong>Low.</strong> Takes some ownership and shows some goal-orientation; occasionally simplifies solutions, or solutions are low-impact.</div></div>
+      <div class="level-row"><div class="level-badge s3">3</div><div class="lv-txt"><strong>Average.</strong> Takes ownership of their actions, decisions and outcomes and learns from them; goal-oriented, understands cost-benefit analysis, prioritises high-impact solutions — but may need support.</div></div>
+      <div class="level-row"><div class="level-badge s4">4</div><div class="lv-txt"><strong>Good.</strong> Continuously improves; highly goal-oriented; connects their work to business objectives; independently develops high-quality, consistently high-impact solutions.</div></div>
+      <div class="level-row"><div class="level-badge s5">5</div><div class="lv-txt"><strong>Exceptional.</strong> A value champion — mentors or supports others in taking ownership, goal-orientation and understanding business needs and costs, and encourages the development of high-impact solutions.</div></div>
+    </div>
   </div>
 
   <div class="callout note">
     <span class="ci">◆</span>
-    <p><strong>"This is too hard!"</strong> You don't need a perfect read. Gather pieces of evidence — from general questions, relevant scenarios and direct questions — and decide one of three things for each pillar: the candidate <em>lacks</em> the skill, it's <em>not clear</em>, or the candidate <em>has</em> the skill. That's enough to score honestly.</p>
+    <p><strong>"This is too hard!"</strong> You don't need a perfect read on all five levels in the room. Gather pieces of evidence — from general questions, relevant scenarios and direct questions — and for each pillar decide one of three things: the candidate <em>lacks</em> the skill, it's <em>not clear</em>, or the candidate <em>has</em> the skill. That alone is enough to place a score honestly, and "not clear" is a legitimate answer that tells the team where to dig next.</p>
   </div>
 
   <div class="card">
     <h3>Building pillar questions</h3>
-    <p>Develop your questions with the recruitment team, and build the pillars into your structured questions. Follow up with specific prompts — for example:</p>
+    <p>Develop your questions with the recruitment team, and build the pillars into your structured questions rather than bolting them on at the end. Favour prompts that make the candidate describe real behaviour, then follow up for specifics — for example:</p>
     <ul class="clean">
-      <li>"Tell me about what you understand by good teamwork."</li>
-      <li>"What drives you to succeed and improve?"</li>
-      <li>"How do you apply data to your decision-making?"</li>
+      <li>"Tell me about what you understand by good teamwork." <em>(Teamwork)</em></li>
+      <li>"What drives you to succeed and improve?" <em>(Hunger)</em></li>
+      <li>"How do you apply data to your decision-making?" <em>(Critical Thinking)</em></li>
     </ul>
   </div>
 
   <div class="check-head"><span class="pill">Knowledge check</span></div>
   <div class="card" data-quiz>
     <div class="quiz-item">
-      <div class="quiz-q" data-qid="m_pillars" data-qlabel="M3 · The three pillars"><span class="qnum">Q</span>A candidate independently examines assumptions, seeks out data and digs into root causes, with consistently high-quality outcomes. Which pillar and level does this describe?</div>
-      <button class="opt" data-correct="1">Critical thinking, level 4 (Good)<span class="mark"></span></button>
+      <div class="quiz-q" data-qid="m_pillars" data-qlabel="M3 · Pillar & level"><span class="qnum">Q</span>A candidate independently examines assumptions, seeks out data and digs into root causes, with consistently high-quality outcomes. Which pillar and level does this describe?</div>
+      <button class="opt" data-correct="1">Critical Thinking, level 4 (Good)<span class="mark"></span></button>
       <button class="opt">Hunger, level 5 (Exceptional)<span class="mark"></span></button>
       <button class="opt">Teamwork, level 3 (Average)<span class="mark"></span></button>
-      <div class="explain"><strong>Critical thinking, level 4.</strong> Examining assumptions, seeking data and finding root causes are the critical-thinking behaviours; doing it consistently, independently and with high quality is level 4. Level 5 would add actively guiding <em>others</em> to think this way.</div>
+      <div class="explain"><strong>Critical Thinking, level 4.</strong> Examining assumptions, seeking data and finding root causes are the Critical Thinking behaviours; doing it consistently, independently and with high quality is level 4. Level 5 would add actively guiding <em>others</em> to think this way.</div>
+    </div>
+  </div>
+
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m_pillars2" data-qlabel="M3 · Scoring 'not clear'"><span class="qnum">Q</span>You gathered only a little evidence on a candidate's Hunger, and what you saw was mixed. What's the right move?</div>
+      <button class="opt">Give a 3 — it's the safe middle<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Record it as "not clear" and flag that it needs more evidence<span class="mark"></span></button>
+      <button class="opt">Give a 1 — if it's not obvious, they don't have it<span class="mark"></span></button>
+      <div class="explain"><strong>"Not clear" is the honest call.</strong> A 3 claims you assessed it and found it average; a 1 claims you assessed it and found it absent. Neither is true when the evidence is thin. Naming it "not clear" tells the team exactly where the next interviewer should focus — which is more useful than a falsely confident number.</div>
     </div>
   </div>
 
@@ -472,7 +606,7 @@
     <button class="btn btn-ghost" onclick="go(2)">← Back</button>
     <button class="btn btn-primary" data-next disabled onclick="go(4)">Continue →</button>
   </div>
-  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+  <p class="locked-note" data-lock>Answer the checks above to continue.</p>
 </section>
 
 <!-- ============ SCREEN 3 · SCORING ============ -->
@@ -480,6 +614,27 @@
   <span class="eyebrow">Module 4</span>
   <h2>Scoring &amp; feedback</h2>
   <p>We grade each skill from 1 to 5. Consistent scoring is what lets us compare candidates fairly and calibrate over time.</p>
+
+  <div class="warmup" data-warmup>
+    <div class="warmup-head"><span class="pill">Warm-up</span></div>
+    <p class="warmup-intro">Give these a go before reading on — guessing is fine, and they don't count towards your score.</p>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1</span>You finished the interview 20 minutes ago but haven't written anything down yet. Your afternoon is packed. What's the priority?</div>
+      <button class="opt">Wait until you have a clear hour to write it all up properly<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Get an overall yes/no to the team quickly, then fill in the detail within 24 hours<span class="mark"></span></button>
+      <button class="opt">Rely on remembering it at the next panel meeting<span class="mark"></span></button>
+      <div class="explain"><strong>Fast yes/no first.</strong> The recruiter can act on a clear overall lean straight away, which keeps the candidate moving; the written detail can follow within 24 hours. Memory fades fast, so don't leave it to the meeting — jot evidence while it's fresh.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2</span>You're writing a scorecard for a candidate you're rejecting. What tone should it take?</div>
+      <button class="opt">Blunt and informal — it's internal, no one important reads it<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Professional and evidence-based — the candidate could request it<span class="mark"></span></button>
+      <button class="opt">Vague — the less you commit to writing, the safer<span class="mark"></span></button>
+      <div class="explain"><strong>Professional and specific.</strong> Candidates can request their scorecards under GDPR, and they can surface in a discrimination claim — so "internal" is never really private. Vagueness is its own risk: unexplained decisions look arbitrary. Say what you decided and why, grounded in the criteria.</div>
+    </div>
+  </div>
 
   <div class="card">
     <h3>The 1–5 scale</h3>
@@ -553,11 +708,22 @@
     </div>
   </div>
 
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m3b" data-qlabel="M4 · Submitting the scorecard"><span class="qnum">Q</span>You've filled in every rating and written your summary. You get pulled into a meeting. What still needs to happen?</div>
+      <button class="opt" data-correct="1">Click Submit — until you do, the panel can't see your feedback<span class="mark"></span></button>
+      <button class="opt">Nothing — saved ratings are visible to everyone automatically<span class="mark"></span></button>
+      <button class="opt">Email the panel to let them know your scores<span class="mark"></span></button>
+      <div class="explain"><strong>Submit the scorecard.</strong> Filled-in but unsubmitted feedback is invisible to the rest of the panel — a surprisingly common way for a decision to stall. And don't route it via email; the scorecard system is the only place candidate feedback should live.</div>
+    </div>
+  </div>
+
   <div class="navbtns">
     <button class="btn btn-ghost" onclick="go(3)">← Back</button>
     <button class="btn btn-primary" data-next disabled onclick="go(5)">Continue →</button>
   </div>
-  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+  <p class="locked-note" data-lock>Answer the checks above to continue.</p>
 </section>
 
 <!-- ============ SCREEN 4 · PROTECTED CHARACTERISTICS ============ -->
@@ -565,6 +731,27 @@
   <span class="eyebrow">Module 5</span>
   <h2>Protected characteristics</h2>
   <p>These are traits the law protects from discrimination. You must not ask about them, record them, or let them enter a hiring decision — directly or indirectly.</p>
+
+  <div class="warmup" data-warmup>
+    <div class="warmup-head"><span class="pill">Warm-up</span></div>
+    <p class="warmup-intro">Have a go before reading on — guessing is fine, and these don't count towards your score.</p>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1</span>To break the ice, you're tempted to ask a candidate "So, do you have kids?" Is that okay in an interview?</div>
+      <button class="opt">Yes — it's just friendly small talk<span class="mark"></span></button>
+      <button class="opt" data-correct="1">No — it touches family and pregnancy, which are protected<span class="mark"></span></button>
+      <button class="opt">Only if you ask every candidate the same thing<span class="mark"></span></button>
+      <div class="explain"><strong>No.</strong> However warmly it's meant, it asks about family and pregnancy — protected characteristics — and asking everyone doesn't make it safe. Save the rapport for topics that can't disadvantage anyone. The list below shows what's protected.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2</span>A job spec asks for "10+ years' experience," though the role doesn't truly need that much. Could that be a problem?</div>
+      <button class="opt">No — experience requirements are always fine<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Yes — a needless requirement can indirectly disadvantage a protected group<span class="mark"></span></button>
+      <button class="opt">Only if someone complains about it<span class="mark"></span></button>
+      <div class="explain"><strong>Yes — this is indirect discrimination.</strong> A neutral-looking rule that isn't genuinely necessary can disadvantage a protected group (here, by age). If a requirement isn't essential to the job, it shouldn't gate candidates. You'll see direct vs. indirect explained below.</div>
+    </div>
+  </div>
 
   <div class="card">
     <div class="icon-badge b-clay">⊘</div>
@@ -590,9 +777,11 @@
 
   <div class="card">
     <h3>Direct vs. indirect discrimination</h3>
-    <div class="reveal"><div class="reveal-q">Direct discrimination <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Treating someone worse <em>because of</em> a protected characteristic. Example: not hiring someone because of their age. A direct question would be "How old are you?"</div></div></div>
-    <div class="reveal"><div class="reveal-q">Indirect discrimination <span class="chev">›</span></div><div class="reveal-a"><div class="inner">A requirement that looks neutral but unfairly disadvantages a protected group. Example: demanding a degree the role doesn't actually need can disadvantage younger candidates. Best practice: avoid "years of experience" and non-essential requirements on the spec.</div></div></div>
-    <div class="reveal"><div class="reveal-q">Questions that could be read that way <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Even indirect probes count. "Are you planning on having a family?" discriminates on sex and pregnancy. Before asking anything, pause: could this be interpreted as asking about a protected characteristic, or disadvantage people who have one?</div></div></div>
+    <div class="levels">
+      <div class="level-row"><div class="lv-txt"><strong>Direct discrimination.</strong> Treating someone worse <em>because of</em> a protected characteristic — for example, not hiring someone because of their age. A direct question would be "How old are you?"</div></div>
+      <div class="level-row"><div class="lv-txt"><strong>Indirect discrimination.</strong> A requirement that looks neutral but unfairly disadvantages a protected group. Demanding a degree the role doesn't actually need can disadvantage certain candidates. Best practice: avoid "years of experience" and non-essential requirements on the spec.</div></div>
+      <div class="level-row"><div class="lv-txt"><strong>Questions that could be read that way.</strong> Even indirect probes count. "Are you planning on having a family?" discriminates on sex and pregnancy. Before asking anything, pause: could this be interpreted as asking about a protected characteristic, or disadvantage people who have one?</div></div>
+    </div>
   </div>
 
   <div class="card">
@@ -620,17 +809,40 @@
     <p style="margin-bottom:0;">The safe habit is simple: if you're unsure whether a question is okay, it isn't one you need to ask — so don't. The recruitment team can handle anything that genuinely needs answering.</p>
   </div>
 
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m5" data-qlabel="M5 · Volunteered information"><span class="qnum">Q</span>Mid-interview, a candidate mentions in passing that they've just come back from maternity leave. What do you do with that?</div>
+      <button class="opt" data-correct="1">Acknowledge it warmly if you like, but don't record it or let it affect your assessment<span class="mark"></span></button>
+      <button class="opt">Note it on the scorecard so the panel has full context<span class="mark"></span></button>
+      <button class="opt">Factor it into whether they can handle the role<span class="mark"></span></button>
+      <div class="explain"><strong>Let it pass, don't record it.</strong> A candidate volunteering something protected is fine socially — but the moment it enters your notes or your judgement, it's discrimination. Keep the casual chat and the assessment cleanly separate.</div>
+    </div>
+  </div>
+
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m5b" data-qlabel="M5 · Language requirement"><span class="qnum">Q</span>The role genuinely requires strong written English. Which is the fair way to assess that?</div>
+      <button class="opt" data-correct="1">Ask about and test the writing the job actually needs<span class="mark"></span></button>
+      <button class="opt">Ask whether they're a native English speaker<span class="mark"></span></button>
+      <button class="opt">Ask where they grew up to gauge their English<span class="mark"></span></button>
+      <div class="explain"><strong>Assess the skill the role needs.</strong> Requiring genuine fluency is fine — it's about the job. "Native speaker" and "where did you grow up" are about background and nationality, which are protected and don't actually measure whether someone can do the work.</div>
+    </div>
+  </div>
+
   <div class="navbtns">
     <button class="btn btn-ghost" onclick="go(4)">← Back</button>
-    <button class="btn btn-primary" onclick="go(6)">Continue →</button>
+    <button class="btn btn-primary" data-next disabled onclick="go(6)">Continue →</button>
   </div>
+  <p class="locked-note" data-lock>Answer the checks above to continue.</p>
 </section>
 
 <!-- ============ SCREEN 5 · QUESTION QUIZ ============ -->
 <section class="screen" data-screen="6">
   <span class="eyebrow">Module 6</span>
   <h2>Safe or not safe?</h2>
-  <p>Six real questions. For each, decide whether it's safe to ask an interview candidate — then reveal why. Answer all six to continue.</p>
+  <p>This whole module is practice: six real questions, and for each you decide whether it's safe to ask a candidate before revealing why. It's the flip side of what you just read — put the "when in doubt, don't ask" instinct to work. Don't worry about getting them all right first time; the explanations are where the learning is. Answer all six to continue.</p>
 
   <div class="card" data-quiz-multi>
     <div class="quiz-item">
@@ -682,24 +894,58 @@
 <section class="screen" data-screen="7">
   <span class="eyebrow">Module 7</span>
   <h2>Unconscious bias</h2>
-  <p>We all have it — that's normal, and it's not a moral failing. The goal isn't to pretend you're free of bias; it's to notice it and deliberately push the other way, gathering evidence that challenges your first impression.</p>
+  <p>We all have it — that's normal, and it's not a moral failing. The goal isn't to pretend you're free of bias; it's to notice it and deliberately push the other way, gathering evidence that challenges your first impression rather than confirms it.</p>
+
+  <div class="warmup" data-warmup>
+    <div class="warmup-head"><span class="pill">Warm-up</span></div>
+    <p class="warmup-intro">Try these first — guessing is fine, and they don't count towards your score. They'll make the explanations below land better.</p>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1</span>Ten minutes into an interview you think "yes, this is our person." For the rest of the call you find yourself mostly noticing the things that prove you right. What's happening?</div>
+      <button class="opt">Nothing — first impressions are usually accurate<span class="mark"></span></button>
+      <button class="opt" data-correct="1">You've formed an early conclusion and started collecting evidence that confirms it<span class="mark"></span></button>
+      <button class="opt">You're being efficient with limited time<span class="mark"></span></button>
+      <div class="explain"><strong>This is confirmation bias.</strong> The early verdict quietly changes how you listen — supporting evidence gets weight, contradicting evidence slides past. The danger isn't having a first impression; it's letting it filter everything that follows. You'll see the full definition below.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2</span>A candidate worked at a company you admire. You catch yourself assuming they'll be strong across every skill, including ones you haven't tested yet. What should you do?</div>
+      <button class="opt">Trust it — a strong employer is good evidence of all-round ability<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Treat each skill on its own evidence, regardless of the impressive background<span class="mark"></span></button>
+      <button class="opt">Lower your opinion to compensate<span class="mark"></span></button>
+      <div class="explain"><strong>This is the halo effect — and the fix isn't to overcorrect.</strong> One strong signal shouldn't inflate the others, but deliberately marking them down would just be a different distortion. The move is to assess each skill on its own evidence. More on this below.</div>
+    </div>
+  </div>
+
+  <p>Here are the three that show up most in interviews. Read them with your warm-up answers in mind.</p>
 
   <div class="card">
-    <h3>Three to watch for</h3>
-    <div class="reveal"><div class="reveal-q">Affinity bias <span class="chev">›</span></div><div class="reveal-a"><div class="inner">An unconscious preference for people who are similar to you — same interests, background or experiences. You simply click with them more, and that can quietly inflate your read of them.</div></div></div>
-    <div class="reveal"><div class="reveal-q">Confirmation bias <span class="chev">›</span></div><div class="reveal-a"><div class="inner">Seeking out information that confirms what you already believe, and dismissing anything that contradicts it. Once you've formed an early impression, you start collecting evidence <em>for</em> it and ignoring the rest.</div></div></div>
-    <div class="reveal"><div class="reveal-q">Halo / horns effect <span class="chev">›</span></div><div class="reveal-a"><div class="inner">One strong impression bleeds into everything else. The <strong>halo</strong>: a positive in one area (say, a prestigious employer) makes you assume they're excellent everywhere. The <strong>horns</strong> is the same in reverse — one negative colours your whole view.</div></div></div>
+    <h3>Affinity bias</h3>
+    <p>An unconscious preference for people who are similar to you — the same background, interests, career path, sense of humour, or way of speaking. You simply click with them more, the conversation flows, and that ease gets misread as evidence of competence. It's one of the most common biases in hiring precisely because it feels like nothing more than "good rapport."</p>
+    <p style="margin-bottom:0;"><strong>What it looks like:</strong> you leave the interview saying "I really liked them" but struggle to point to specific, role-relevant evidence behind the warmth. <strong>The counter-move:</strong> when you notice that easy rapport, treat it as a flag to work harder, not a reason to relax — deliberately probe for concrete examples so your score rests on what they can do, not on how comfortable the conversation felt.</p>
+  </div>
+
+  <div class="card">
+    <h3>Confirmation bias</h3>
+    <p>Forming an early impression and then, often without realising, seeking out information that confirms it while dismissing anything that contradicts it. Once you've decided someone is strong, an ambiguous answer gets read generously; once you've decided someone is weak, the same answer gets read harshly. The impression shapes the evidence instead of the evidence shaping the impression.</p>
+    <p style="margin-bottom:0;"><strong>What it looks like:</strong> your questions in the second half of the interview start leaning towards the verdict you already reached. <strong>The counter-move:</strong> hold your judgement open as long as you can, and actively look for evidence <em>against</em> your first read — ask yourself "what would change my mind?" and then genuinely test it.</p>
+  </div>
+
+  <div class="card">
+    <h3>Halo &amp; horns effect</h3>
+    <p>When one strong impression bleeds into everything else. The <strong>halo</strong>: a single positive — a prestigious employer, a confident manner, a shared alma mater — makes you assume the person is excellent across the board, including areas you haven't actually assessed. The <strong>horns</strong> is the same mechanism in reverse: one negative, like a nervous start or a single weak answer, colours your whole view and drags down skills that might genuinely be strong.</p>
+    <p style="margin-bottom:0;"><strong>What it looks like:</strong> a candidate's rating on one pillar mysteriously matches their rating on all the others, with little independent evidence for each. <strong>The counter-move:</strong> score each pillar separately and make yourself cite evidence for each one on its own. If you can't find distinct evidence for a skill, that's a signal to leave it "not clear" — not to borrow confidence from an unrelated strength or weakness.</p>
   </div>
 
   <div class="callout good">
     <span class="ci">♦</span>
-    <p><strong>The counter-move is the same every time.</strong> Whenever you notice a strong pull — "I love that company, everything they say will be brilliant" — deliberately ask for the concrete evidence and real examples behind it. Let the evidence decide, not the halo.</p>
+    <p><strong>The counter-move is the same shape every time.</strong> Whenever you notice a strong pull — positive or negative — treat it as a prompt to go looking for concrete, specific evidence rather than acting on the feeling. Bias thrives on vague impressions; it struggles against "show me a real example." Let the evidence decide.</p>
   </div>
 
   <div class="check-head"><span class="pill">Scenario check</span></div>
   <div class="card" data-quiz>
     <div class="quiz-item">
-      <div class="quiz-q" data-qid="m6" data-qlabel="M7 · Identifying a bias"><span class="qnum">Q</span>A candidate went to your university and you immediately warm to them. Which bias is this, and what should you do?</div>
+      <div class="quiz-q" data-qid="m6" data-qlabel="M7 · Identifying affinity bias"><span class="qnum">Q</span>A candidate went to your university and you immediately warm to them. Which bias is this, and what should you do?</div>
       <button class="opt" data-correct="1">Affinity bias — deliberately probe for hard evidence rather than coasting on the connection<span class="mark"></span></button>
       <button class="opt">Halo effect — score them higher to reflect the strong school<span class="mark"></span></button>
       <button class="opt">No bias — shared background is a fair signal of fit<span class="mark"></span></button>
@@ -707,11 +953,22 @@
     </div>
   </div>
 
+  <div class="check-head"><span class="pill">Scenario check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m6b" data-qlabel="M7 · The nervous start"><span class="qnum">Q</span>A candidate is visibly nervous and stumbles through the first question. You notice yourself starting to feel sceptical about everything they say afterwards. What's the risk, and the fix?</div>
+      <button class="opt" data-correct="1">Horns effect — consciously reset and judge each later answer on its own merits<span class="mark"></span></button>
+      <button class="opt">Confirmation bias — end the interview early to save time<span class="mark"></span></button>
+      <button class="opt">No real risk — a shaky start is fair to weigh heavily<span class="mark"></span></button>
+      <div class="explain"><strong>Horns effect.</strong> One weak moment — especially nerves, which aren't a pillar — is colouring your read of everything after it. The fix is to notice the drag and deliberately assess each subsequent answer freshly, giving the candidate the room to recover that you'd want yourself. Supporting a nervous candidate is also just good candidate experience.</div>
+    </div>
+  </div>
+
   <div class="navbtns">
     <button class="btn btn-ghost" onclick="go(6)">← Back</button>
     <button class="btn btn-primary" data-next disabled onclick="go(8)">Continue →</button>
   </div>
-  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+  <p class="locked-note" data-lock>Answer the checks above to continue.</p>
 </section>
 
 <!-- ============ SCREEN 7 · GDPR ============ -->
@@ -719,6 +976,27 @@
   <span class="eyebrow">Module 8</span>
   <h2>Data &amp; GDPR</h2>
   <p>Candidate data is personal data, and the law is strict about it. The rules are simple to follow once you know them.</p>
+
+  <div class="warmup" data-warmup>
+    <div class="warmup-head"><span class="pill">Warm-up</span></div>
+    <p class="warmup-intro">Try these before reading on — guessing is fine, and they don't count towards your score.</p>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1</span>You want to jot a few thoughts during an interview. Where should those notes end up afterwards?</div>
+      <button class="opt">Saved in your notes app, so you can find them later<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Transferred into the tracking system, then deleted or destroyed<span class="mark"></span></button>
+      <button class="opt">Kept on paper in your desk drawer<span class="mark"></span></button>
+      <div class="explain"><strong>Into the tracking system, then gone.</strong> Scratch notes — digital or paper — are candidate personal data. Move the substance into the scorecard and destroy the original; loose notes lying around are exactly what GDPR is strict about.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2</span>Roughly how big can a GDPR fine be? (A sense of scale, not a trick.)</div>
+      <button class="opt">A few thousand euros at most<span class="mark"></span></button>
+      <button class="opt" data-correct="1">Up to €20 million or 4% of global annual turnover<span class="mark"></span></button>
+      <button class="opt">There's no financial penalty, just a warning<span class="mark"></span></button>
+      <div class="explain"><strong>Up to €20 million or 4% of global turnover</strong>, whichever is greater. The point isn't to frighten you — it's why these small habits matter. Following the simple rules below is what keeps both the candidate and the company safe.</div>
+    </div>
+  </div>
 
   <div class="card">
     <div class="icon-badge b-sky">▤</div>
@@ -753,11 +1031,22 @@
     </div>
   </div>
 
+  <div class="check-head"><span class="pill">Knowledge check</span></div>
+  <div class="card" data-quiz>
+    <div class="quiz-item">
+      <div class="quiz-q" data-qid="m7b" data-qlabel="M8 · Discussing candidates"><span class="qnum">Q</span>You want a colleague's quick take on a candidate. Where should that conversation happen?</div>
+      <button class="opt" data-correct="1">In the dedicated role channel set up for it<span class="mark"></span></button>
+      <button class="opt">A direct message, to keep it discreet<span class="mark"></span></button>
+      <button class="opt">Over email, so there's a record<span class="mark"></span></button>
+      <div class="explain"><strong>The dedicated role channel.</strong> Those channels are set up for candidate discussion and deleted after use, which keeps data contained. Scattering it into DMs and email is how candidate information ends up in places no one can properly clean up later.</div>
+    </div>
+  </div>
+
   <div class="navbtns">
     <button class="btn btn-ghost" onclick="go(7)">← Back</button>
     <button class="btn btn-primary" data-next disabled onclick="go(9)">Finish →</button>
   </div>
-  <p class="locked-note" data-lock>Answer the check above to continue.</p>
+  <p class="locked-note" data-lock>Answer the checks above to continue.</p>
 </section>
 
 <!-- ============ SCREEN 8 · FINISH ============ -->
@@ -892,14 +1181,45 @@
   });
 
   function unlock(screen) {
+    // Only unlock when every scored check on this screen has been answered.
+    const boxes = screen.querySelectorAll('[data-quiz], [data-quiz-multi]');
+    const allDone = Array.from(boxes).every(b => {
+      if (b.hasAttribute('data-quiz-multi')) {
+        return Array.from(b.querySelectorAll('.quiz-item')).every(it => it.dataset.done);
+      }
+      return b.dataset.done;
+    });
+    if (!allDone) return;
     const next = screen.querySelector('[data-next]');
     const lock = screen.querySelector('[data-lock]');
     if (next) next.disabled = false;
     if (lock) lock.style.display = 'none';
   }
 
+  /* ---- warm-up questions (question-first, UNSCORED, non-gating) ---- */
+  document.querySelectorAll('[data-warmup]').forEach(box => {
+    box.querySelectorAll('.quiz-item').forEach(item => {
+      const opts = item.querySelectorAll('.opt');
+      const explain = item.querySelector('.explain');
+      opts.forEach(opt => {
+        opt.addEventListener('click', () => {
+          if (item.dataset.done) return;
+          item.dataset.done = '1';
+          const correct = opt.dataset.correct === '1';
+          opts.forEach(o => {
+            o.disabled = true;
+            if (o.dataset.correct === '1') { o.classList.add('correct'); o.querySelector('.mark').textContent = '✓'; }
+          });
+          if (!correct) { opt.classList.add('wrong'); opt.querySelector('.mark').textContent = '✗'; }
+          if (explain) explain.classList.add('show');
+          // deliberately NO record() and NO unlock() — warm-ups never affect the score or gate progress
+        });
+      });
+    });
+  });
+
   /* ---- results rendering on finish screen ---- */
-  const QORDER = ['m1','m2','m_pillars','m3','q1','q2','q3','q4','q5','q6','m6','m7'];
+  const QORDER = ['m1','m1b','m2','m2b','m_pillars','m_pillars2','m3','m3b','m5','m5b','q1','q2','q3','q4','q5','q6','m6','m6b','m7','m7b'];
   function scored() {
     const answered = QORDER.filter(id => results[id]);
     const right = answered.filter(id => results[id].correct);
